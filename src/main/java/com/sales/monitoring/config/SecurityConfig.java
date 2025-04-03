@@ -25,7 +25,9 @@ public class SecurityConfig {
             .ignoringRequestMatchers(
                 new AntPathRequestMatcher("/h2-console/**"),
                 new AntPathRequestMatcher("/user/**"),
-                new AntPathRequestMatcher("/auth/**")
+                new AntPathRequestMatcher("/auth/**"),
+                new AntPathRequestMatcher("/product/**"),
+                new AntPathRequestMatcher("/sale/**")
             )
         );
 
