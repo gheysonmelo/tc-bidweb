@@ -1,31 +1,33 @@
 package com.sales.monitoring.user;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import java.util.Optional;
 
 @Service
 public class UserService {
 
-    private final IUserRepository userRepository;
+    @Autowired
+    private IUserRepository userRepository;
 
-    public UserService(IUserRepository userRepository) {
-        this.userRepository = userRepository;
-    }
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
-    public UserModel createUser(UserModel userModel) {
-        UserModel existingUser = userRepository.findByUsername(userModel.getUsername());
+    public Optional<UserModel> createUser(UserModel userModel) {
+        Optional<UserModel> existingUser = userRepository.findByUsername(userModel.getUsername());
 
-        if (existingUser != null) {
-            // Lançar um erro
+        if (existingUser.isPresent()) {
             return existingUser;
         } else {
-            return userRepository.save(userModel);
-        }
+            userModel.setPassword(passwordEncoder.encode(userModel.getPassword()));
+            UserModel createdUser = userRepository.save(userModel);
 
+            return Optional.ofNullable(createdUser);
+        }
     }
 
-    public UserModel getByUsername(String username) {
-        UserModel user = userRepository.findByUsername(username);
-
-        return user;
+    public Optional<UserModel> findByUsername(String username) {
+        return userRepository.findByUsername(username);
     }
 }
