@@ -18,6 +18,11 @@ public class SaleController {
 
         return createdProduct;
     }
+
+    @GetMapping
+    public Iterable<SaleModel> findAll() {
+        return saleService.findAll();
+    }
 }
 
 

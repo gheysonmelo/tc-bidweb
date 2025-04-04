@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 import com.sales.monitoring.product.ProductModel;
 import com.sales.monitoring.product.ProductService;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -44,7 +45,21 @@ public class SaleService {
 
         SaleModel createdSale = saleRepository.save(sale);
 
-        return Optional.ofNullable(createdSale);
-        
+        return Optional.ofNullable(createdSale);   
+    }
+
+    // Método para buscar todas as vendas
+    public Iterable<SaleModel> findAll() {
+        List<SaleModel> sales = saleRepository.findAll();
+
+        // Colocar o nome do produto em cada objeto de venda
+        for (SaleModel sale : sales) {
+            ProductModel product = productService.findById(sale.getProduct().getId()).orElse(null);
+            if (product != null) {
+                sale.setProduct(product);
+            }
+        }
+
+        return sales;
     }
 }
