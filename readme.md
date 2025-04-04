@@ -14,7 +14,7 @@ Este projeto é uma aplicação web que simula um sistema de monitoramento de ve
 Abra um terminal e execute:
 
 ```bash
-git clone [https://github.com/seu-usuario/sales-monitoring-system.git](https://github.com/gheysonmelo/tc-bidweb.git)
+git clone https://github.com/gheysonmelo/tc-bidweb.git
 ```
 
 Navegue até o diretório do projeto:
