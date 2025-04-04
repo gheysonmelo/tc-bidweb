@@ -30,4 +30,8 @@ public class ProductService {
     public Optional<ProductModel> findById(long id) {
         return productRepository.findById(id);
     }
+
+    public Iterable<ProductModel> getAllProducts() {
+        return productRepository.findAll();
+    }
 }

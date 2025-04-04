@@ -26,6 +26,12 @@ public class ProductController {
             .map(ResponseEntity::ok)
             .orElse(ResponseEntity.notFound().build());
     }
+
+    // Listar todos os produtos
+    @GetMapping
+    public ResponseEntity<?> getAllProducts() {
+        return ResponseEntity.ok(productService.getAllProducts());
+    }
 }
 
 
